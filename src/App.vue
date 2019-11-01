@@ -4,10 +4,13 @@
     <input class="form-control" type="text" name="title" v-model="form.title"/>
     <label class="form-control-label">Form name</label>
     <input class="form-control" type="text" name="name" v-model="form.name"/>
-    <app-form></app-form>
+    <div v-for="items in buildArray">
+      <app-form></app-form>
+    </div>
     <div class="form-group">
       <div class="col-sm-10">
         <button class="btn btn-danger" @click="addMoreFields">Generate Form</button>
+        <button class="btn btn-info" @click="addToForm">Add more Fields</button>
         <button class="btn btn-danger" @click="removeField" :disabled="buildItems.items === undefined">Remove Field</button>
       </div>
     </div>
@@ -32,7 +35,8 @@ export default {
         name: '',
         title: '',
         items: []
-      }
+      },
+      buildArray: []
     }
   },
   methods: {
@@ -49,6 +53,9 @@ export default {
       };
       this.addToBuildFields(form)
     },
+      addToForm() {
+        this.buildArray.push(this.form)
+      },
     removeField() {
       this.deleteFields({
         items: this.form.items

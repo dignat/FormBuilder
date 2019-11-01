@@ -7,30 +7,34 @@
             <component :is="currentFieldType"></component>
     </div>
 </template>
-
 <script>
     import {mapActions} from 'vuex'
+    import {mapGetters} from 'vuex'
     import TextComponent from './fields/TextComponent'
     import Location from './fields/Location'
     import Radio from './fields/Radio'
+    import MainRepeater from './fields/MainRepeater'
     export default {
         name: "Form",
         props: ['item'],
         components: {
             appText: TextComponent,
-            appLocation: Location
+            appLocation: Location,
+            appRepeater: MainRepeater
         },
         data () {
             return {
-                types: ['inputtext', 'inputlocation', 'inputradio'],
+                types: ['inputtext', 'inputlocation', 'inputradio', 'inputrepeat'],
                 currentType: null,
                 currentFieldType: null,
+                partOfStructure: false
             }
         },
         methods: {
             ...mapActions([
                 'updateFieldType',
                 'updateType',
+                'updateComplexStructure'
             ]),
 
             changeType (value) {
@@ -48,14 +52,22 @@
                     case 'inputradio':
                         this.currentFieldType = Radio;
                         break;
+                    case 'inputrepeat':
+                        this.currentFieldType = MainRepeater;
+                        break
                 }
                 this.updateFieldType({
-                    fieldType : this.currentFieldType
+                    fieldType : this.currentFieldType,
                 });
-
+                this.updateComplexStructure({
+                    structure: false
+                })
             }
 
         },
+        computed: {
+            ...mapGetters(['form'])
+        }
     }
 </script>
 

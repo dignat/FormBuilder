@@ -9,9 +9,7 @@
             <input class="form-control" type="number" name="minute" v-model="fields.minute"/>
         </div>
         <div class="form-group">
-            <div class="col-sm-10">
-                <button class="btn btn-primary" @click="addField">Add Field</button>
-            </div>
+            <button class="btn btn-primary" @click="addField">Add Field</button>
         </div>
     </div>
 

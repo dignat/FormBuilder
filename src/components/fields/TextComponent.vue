@@ -16,10 +16,11 @@
         <label>Default</label>
         <input class="form-control" type="text" name="default" v-model="fields.default">
     </div>
-        <div class="form-group">
-            <div class="col-sm-10">
+        <div class="form-group" v-if="!partOfStructure">
                 <button class="btn btn-primary" @click="addField">Add Field</button>
-            </div>
+        </div>
+        <div class="form-group" v-if="partOfStructure">
+                <button class="btn btn-primary" @click="addToRepeater">Add To Repeater</button>
         </div>
     </div>
 
@@ -41,13 +42,14 @@
                     required: false,
                     enabled: false,
                     default: ''
-                }
+                },
 
             }
         },
         methods: {
             ...mapActions([
                 'addFields',
+                'addRepeaterFields'
             ]),
             addField() {
                 this.addFields({
@@ -55,7 +57,20 @@
                     name: this.fields.name,
                     title: this.fields.title
                 })
+            },
+            addToRepeater() {
+                this.addRepeaterFields({
+                    type: this.fields.type,
+                    name: this.fields.name,
+                    title: this.fields.title
+                });
             }
+        },
+        computed: {
+            partOfStructure() {
+                return this.$store.getters.partOfStructure.structure
+            }
+
         }
     }
 </script>

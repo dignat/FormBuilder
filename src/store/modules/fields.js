@@ -3,6 +3,10 @@ const state = {
     currentFieldType: null,
     currentType: null,
     customFields: [],
+    repeaterItems: [],
+    repeaterFields: {},
+    listFields: [],
+    partOfStructure: null,
     form: {}
 };
 
@@ -12,7 +16,9 @@ const mutations= {
     },
     'UPDATE_FIELD_TYPE'(state, currentFieldType) {
         state.currentFieldType = currentFieldType;
-        console.log(currentFieldType);
+    },
+    'UPDATE_COMPLEX_STRUCTURE'(state, partOfStructure) {
+        state.partOfStructure = partOfStructure
     },
     'UPDATE_TYPE'(state, currentType) {
         state.currentType = currentType;
@@ -29,6 +35,9 @@ const mutations= {
     'ADD_TO_CUSTOM_FIELDS' (state, data) {
         state.customFields.push(Object.assign({}, data));
     },
+    'ADD_REPEATER_FIELDS' (state, data) {
+        state.repeaterItems.push(Object.assign({}, data));
+    },
     'DELETE_FIELDS' (state) {
         state.items.pop();
     }
@@ -42,6 +51,9 @@ const actions = {
     updateFieldType: ({commit}, fieldType) => {
         commit('UPDATE_FIELD_TYPE', fieldType);
     },
+    updateComplexStructure: ({commit}, structure) => {
+        commit('UPDATE_COMPLEX_STRUCTURE', structure)
+    },
     updateType: ({commit}, type) => {
         commit('UPDATE_TYPE', type);
     },
@@ -51,6 +63,9 @@ const actions = {
     addToCustomFields: ({commit}, data) => {
         commit('ADD_TO_CUSTOM_FIELDS', data)
     },
+    addRepeaterFields: ({commit}, data) => {
+        commit('ADD_REPEATER_FIELDS', data);
+    },
     deleteFields: ({commit}) => {
         commit('DELETE_FIELDS')
     }
@@ -59,6 +74,10 @@ const actions = {
 const getters = {
     form: state => state.form,
     customFields: state => state.customFields,
+    listFields: state => state.listFields,
+    repeaterItems: state => state.repeaterItems,
+    partOfStructure: state => state.partOfStructure,
+    updatedCurrentType: state => state.currentType
 };
 
 export default {
