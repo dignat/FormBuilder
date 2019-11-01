@@ -6,15 +6,16 @@
             <label class="form-control-label">Repeater Title</label>
             <input class="form-control" type="text" name="title" v-model="fields.title">
         </div>
-        <div class="form-group">
+        <div class="form-group" v-for="item in buildArray">
             <app-fields></app-fields>
         </div>
+      <div class="form-group">
+        <button class="btn  btn-primary" @click="addMoreFields">Add More Fields</button>
+      </div>
         <div class="form-group">
-            <button class="button btn-primary" @click="addField">Add Repeater</button>
+          <button class="btn btn-primary" @click="addField">Add Repeater</button>
         </div>
-        <div class="form-group">
-            <button class="btn btn-primary" @click="addToRepeater">Add To Repeater</button>
-        </div>
+
     </div>
 </template>
 
@@ -34,6 +35,7 @@
                     title: '',
                     items: []
                 },
+                buildArray: []
             }
 
         },
@@ -49,6 +51,9 @@
                   title: this.fields.title,
                   items: this.repeaterItems
               })
+            },
+            addMoreFields() {
+              this.buildArray.push(this.fields)
             },
             addToRepeater() {
                 this.addRepeaterFields({
